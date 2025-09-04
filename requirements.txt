@@ -1,9 +1,7 @@
-streamlit
 fastf1
 matplotlib
-pandas
 numpy
+pandas
 plotly
-sklearn
-warnings
-os
+scikit-learn
+streamlit
