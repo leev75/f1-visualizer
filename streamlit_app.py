@@ -242,8 +242,8 @@ with tab1:
     stints_df = get_stints(laps_data_global.copy()) # Pass a copy to get_stints if it modifies the df
 
     if not stints_df.empty:
-        compound_colors_plt = ff1.plotting.COMPOUND_COLORS.copy()
-        compound_colors_plt.update({'UNKNOWN': 'grey'})
+        compound_colors = ff1.plotting.get_compound_mapping(session_race).copy()
+        compound_colors.update({'UNKNOWN': 'grey'})
         edge_colors_plt = {compound: 'black' for compound in compound_colors_plt}
         drivers_list = sorted(stints_df['Driver'].unique())
 
