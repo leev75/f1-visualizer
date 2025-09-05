@@ -18,6 +18,8 @@ import os
 
 
 st.set_page_config(layout="wide")
+session_race = ff1.get_session(2023, 'Italian Grand Prix', 'R') 
+session_race.load()
 
 # --- FastF1 Setup ---
 try:
@@ -242,8 +244,9 @@ with tab1:
     stints_df = get_stints(laps_data_global.copy()) # Pass a copy to get_stints if it modifies the df
 
     if not stints_df.empty:
-        compound_colors = ff1.plotting.get_compound_mapping(session_race).copy()
-        compound_colors.update({'UNKNOWN': 'grey'})
+        compound_colors_plt = ff1.plotting.get_compound_mapping(session_race).copy()
+        compound_colors_plt.update({'UNKNOWN': 'grey'})
+
         edge_colors_plt = {compound: 'black' for compound in compound_colors_plt}
         drivers_list = sorted(stints_df['Driver'].unique())
 
@@ -374,7 +377,7 @@ with tab2:
 
                                 if not laps_to_plot_plotly.empty:
                                     fig_lap_times_plotly = go.Figure()
-                                    plotly_compound_color = ff1.plotting.COMPOUND_COLORS.get(compound_used_analysis, 'grey')
+                                    plotly_compound_color = compound_colors_plt.get(compound_used_analysis, 'grey')
                                     fig_lap_times_plotly.add_trace(go.Scatter(
                                         x=laps_to_plot_plotly['LapNumber'], 
                                         y=laps_to_plot_plotly['LapTime_sec'], # Standardized to LapTime_sec
